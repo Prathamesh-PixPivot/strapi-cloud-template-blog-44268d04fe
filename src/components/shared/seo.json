@@ -3,24 +3,47 @@
   "info": {
     "name": "Seo",
     "icon": "allergies",
-    "displayName": "Seo",
-    "description": ""
+    "displayName": "SEO",
+    "description": "Search Engine Optimization fields for better discoverability"
   },
   "options": {},
   "attributes": {
     "metaTitle": {
       "type": "string",
-      "required": true
+      "required": false,
+      "maxLength": 60
     },
     "metaDescription": {
       "type": "text",
-      "required": true
+      "required": false,
+      "maxLength": 160
+    },
+    "keywords": {
+      "type": "text",
+      "required": false
     },
     "shareImage": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "canonicalURL": {
+      "type": "string",
+      "required": false
+    },
+    "metaRobots": {
+      "type": "enumeration",
+      "enum": [
+        "index, follow",
+        "index, nofollow",
+        "noindex, follow",
+        "noindex, nofollow"
+      ],
+      "default": "index, follow",
+      "required": false
     }
   }
 }
