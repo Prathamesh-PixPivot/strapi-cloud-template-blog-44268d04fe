@@ -9,12 +9,21 @@ Complete API reference for the Strapi Blog CMS.
 
 ## Authentication
 
-For public endpoints, no authentication is required (after setting permissions).
+For **read-only** endpoints (GET), no authentication is required after setting public permissions.
 
-For protected endpoints, include the API token in headers:
-```
-Authorization: Bearer YOUR_API_TOKEN
-```
+For **write** endpoints (POST, PUT, PATCH, DELETE), you need an API token:
+
+1. **Create API Token:**
+   - Go to Admin Panel → Settings → API Tokens
+   - Create a new token with appropriate permissions
+   - Copy the token (you won't see it again!)
+
+2. **Use Token in Requests:**
+   ```
+   Authorization: Bearer YOUR_API_TOKEN
+   ```
+
+**See [API Write Guide](./API_WRITE_GUIDE.md) for complete write operations documentation.**
 
 ---
 
@@ -202,6 +211,159 @@ Returns articles in the same category as the specified article.
 ```bash
 GET /api/articles/related?slug=my-blog-post&limit=3&populate=*
 ```
+
+---
+
+### Create Article
+```http
+POST /api/articles
+```
+
+**Headers:**
+```
+Content-Type: application/json
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+**Request Body:**
+```json
+{
+  "data": {
+    "title": "My New Blog Post",
+    "description": "Blog post description",
+    "author": 1,
+    "category": 1,
+    "publishDate": "2024-01-15T10:00:00.000Z",
+    "readingTime": 5,
+    "featured": false,
+    "tags": ["technology", "web"],
+    "seo": {
+      "metaTitle": "My New Blog Post | Company",
+      "metaDescription": "SEO description",
+      "keywords": "blog, tech",
+      "metaRobots": "index, follow"
+    },
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "body": "<p>Content here</p>"
+      }
+    ]
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "My New Blog Post",
+      "slug": "my-new-blog-post",
+      "publishedAt": null
+    }
+  }
+}
+```
+
+**Note:** Article is created as draft. Use publish endpoint to publish.
+
+---
+
+### Update Article
+```http
+PUT /api/articles/:id
+PATCH /api/articles/:id
+```
+
+**Headers:**
+```
+Content-Type: application/json
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+**Request Body (PUT - full update):**
+```json
+{
+  "data": {
+    "title": "Updated Title",
+    "description": "Updated description",
+    "featured": true
+  }
+}
+```
+
+**Request Body (PATCH - partial update):**
+```json
+{
+  "data": {
+    "featured": true
+  }
+}
+```
+
+---
+
+### Publish Article
+```http
+POST /api/articles/:id/actions/publish
+```
+
+**Headers:**
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "publishedAt": "2024-01-15T10:00:00.000Z"
+    }
+  }
+}
+```
+
+---
+
+### Unpublish Article
+```http
+POST /api/articles/:id/actions/unpublish
+```
+
+**Headers:**
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+---
+
+### Delete Article
+```http
+DELETE /api/articles/:id
+```
+
+**Headers:**
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "Deleted Article"
+    }
+  }
+}
+```
+
+**📖 For detailed write operations, see [API Write Guide](./API_WRITE_GUIDE.md)**
 
 ---
 

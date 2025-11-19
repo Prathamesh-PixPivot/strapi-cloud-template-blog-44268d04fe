@@ -345,6 +345,49 @@ curl http://localhost:1337/api/articles?populate=*
 
 ---
 
+## ✍️ Creating Posts via API
+
+Yes! You can create blog posts through the API. This is perfect for:
+- Automated content publishing
+- Importing content from other systems
+- Building custom admin interfaces
+- Integrating with third-party services
+
+**See [API Write Guide](./API_WRITE_GUIDE.md) for complete documentation on:**
+- Setting up API tokens
+- Creating articles with all fields
+- Uploading images
+- Working with content blocks
+- Complete code examples
+
+**Quick Example:**
+```javascript
+// Create article via API
+const response = await fetch('https://your-strapi-domain.com/api/articles', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_API_TOKEN',
+  },
+  body: JSON.stringify({
+    data: {
+      title: 'My Blog Post',
+      description: 'Description here',
+      author: 1,
+      category: 1,
+      blocks: [
+        {
+          __component: 'shared.rich-text',
+          body: '<p>Content here</p>',
+        },
+      ],
+    },
+  }),
+});
+```
+
+---
+
 ## 🌐 Frontend Integration
 
 ### Example: Fetching Articles in React

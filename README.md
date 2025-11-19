@@ -7,6 +7,7 @@ A professionally configured Strapi headless CMS for managing blog content for yo
 - **[Quick Start Guide](./QUICK_START.md)** - Get up and running in 5 minutes! ⚡
 - **[Blog Setup Guide](./BLOG_SETUP_GUIDE.md)** - Complete guide to understanding and using your blog CMS
 - **[API Reference](./API_REFERENCE.md)** - Complete API endpoint documentation
+- **[API Write Guide](./API_WRITE_GUIDE.md)** - Create, update, and manage posts via API ✍️
 - **[Configuration Guide](./CONFIGURATION_GUIDE.md)** - Environment variables and configuration
 
 ## 🚀 Quick Start
